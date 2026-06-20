@@ -2,7 +2,7 @@ import re
 from Tokenizers.SimpleTokenizerV1 import SimpleTokenizerV1
 from Tokenizers.SimpleTokenizerV2 import SimpleTokenizerV2
 from Tokenizers.BPE_Tokenizer import BPE_Tokenizer
-from GPTDataSetV1 import GPTDatasetV1
+from GPTDataSetV1 import create_dataloader_v1
 
 with open("Data/verdict.txt","r",encoding="utf-8") as file:
     content=file.read()
@@ -51,25 +51,31 @@ with open("Data/verdict.txt","r",encoding="utf-8") as file:
 # print(bpe_tokenizer.decoder(bpe_tokenids))
 
 #GPTDatasetV1
-tokenizer=BPE_Tokenizer("gpt2")
-context_size=4
-stride=1
-dataset=GPTDatasetV1(content,tokenizer,context_size,stride)
+# tokenizer=BPE_Tokenizer("gpt2")
+# context_size=256
+# stride=128
+# dataset=GPTDatasetV1(content,tokenizer,context_size,stride)
 
-print("Total Samples:", len(dataset))
+# print("Total Samples:", len(dataset))
 
-x, y = dataset.__getitem__(0)
+# x, y = dataset.__getitem__(0)
 
-print("\nInput Tokens")
-print(x)
+# print("\nInput Tokens")
+# print(x)
 
-print("\nTarget Tokens")
-print(y)
+# print("\nTarget Tokens")
+# print(y)
 
-print("\nDecoded Input")
-print(tokenizer.decoder(x.tolist()))
+# print("\nDecoded Input")
+# print(tokenizer.decoder(x.tolist()))
 
-print("\nDecoded Target")
-print(tokenizer.decoder(y.tolist()))
+# print("\nDecoded Target")
+# print(tokenizer.decoder(y.tolist()))
+
+loader=create_dataloader_v1(content)
+
+di=iter(loader)
+fb=next(di)
+print(fb)
 
 

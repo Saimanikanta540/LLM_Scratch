@@ -1,4 +1,5 @@
 import torch
+from Tokenizers.BPE_Tokenizer import BPE_Tokenizer
 from torch.utils.data import Dataset,DataLoader
 
 class GPTDatasetV1(Dataset):
@@ -19,5 +20,17 @@ class GPTDatasetV1(Dataset):
     
     def __getitem__(self,idx):
         return self.input_ids[idx],self.target_ids[idx]
+    
+def create_dataloader_v1(txt,batch_size=4,context_size=256,stride=128,shuffle=True,drop_last=True):
 
+    #intiales the tokenizer
+    tokenizer=BPE_Tokenizer("gpt2")
+
+    #creating dataset
+    dataset = GPTDatasetV1(txt,tokenizer,context_size,stride)
+
+    #creating dataloader
+    dataloader= DataLoader(dataset,batch_size=batch_size,shuffle=shuffle,drop_last=drop_last)
+
+    return dataloader
 
