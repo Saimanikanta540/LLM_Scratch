@@ -21,7 +21,7 @@ class GPTDatasetV1(Dataset):
     def __getitem__(self,idx):
         return self.input_ids[idx],self.target_ids[idx]
     
-def create_dataloader_v1(txt,batch_size=4,context_size=256,stride=128,shuffle=True,drop_last=True):
+def create_dataloader_v1(txt,batch_size=4,context_size=256,stride=128,shuffle=True,drop_last=True,num_workers=0):
 
     #intiales the tokenizer
     tokenizer=BPE_Tokenizer("gpt2")
@@ -30,7 +30,7 @@ def create_dataloader_v1(txt,batch_size=4,context_size=256,stride=128,shuffle=Tr
     dataset = GPTDatasetV1(txt,tokenizer,context_size,stride)
 
     #creating dataloader
-    dataloader= DataLoader(dataset,batch_size=batch_size,shuffle=shuffle,drop_last=drop_last)
+    dataloader= DataLoader(dataset,batch_size=batch_size,shuffle=shuffle,drop_last=drop_last,num_workers=num_workers)
 
     return dataloader
 

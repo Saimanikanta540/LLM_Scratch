@@ -74,8 +74,10 @@ with open("Data/verdict.txt","r",encoding="utf-8") as file:
 
 loader=create_dataloader_v1(content)
 
-di=iter(loader)
-fb=next(di)
-print(fb)
+dataiter=iter(loader)
+firstbatch=next(dataiter)
+print("First Batch :",firstbatch)
+secondbatch=next(dataiter)
+print("Second Batch :",secondbatch)
 
 
